@@ -120,4 +120,11 @@ public class Klient {
         }
         return datumNarodenia.format(FORMATTER);
     }
+    // Nastaví dátum registrácie z naformátovaného reťazca
+    public void setDatumRegistracieFormatted(String datumText) {
+        if (datumRegistracie == null) {
+            return;
+        }
+        this.datumRegistracie = LocalDate.parse(datumText, FORMATTER);
+    }
 }
