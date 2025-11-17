@@ -1,9 +1,8 @@
 package sk.patrikscerba.ui;
 
-import sk.patrikscerba.data.ValidaciaVstupov;
+import sk.patrikscerba.db.KlientDaoImpl;
 import sk.patrikscerba.model.Klient;
-import sk.patrikscerba.data.XMLNacitanieKlientov;
-
+import sk.patrikscerba.utils.ValidaciaVstupov;
 import javax.swing.*;
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -12,44 +11,54 @@ import java.util.List;
 // Trieda Vyhľadávanie umožňuje vyhľadávať klientov podľa mena a priezviska
 public class Vyhladavanie extends JFrame {
     private JPanel mainPanel;
-    private JTextField jTextKrstneMeno;
+    private JTextField jTextKrstneMenoLabel;
     private JTextField jTextPriezvisko;
     private JButton buttonHladat;
     private JLabel priezviskoLabel;
     private JLabel krstnéMenoLabel;
 
-    private final boolean vymazat;
+    private final boolean zobrazit;
 
-    //Konštruktor triedy Vyhľadávanie a nastavenie akcií tlačidiel
-    public Vyhladavanie(boolean vymazat) {
-        this.vymazat = vymazat;
+    // Konštruktor triedy Vyhladavanie
+    public Vyhladavanie(boolean zobrazit) {
+        this.zobrazit = zobrazit;
 
-        //Nastavenie základných vlastností okna
+        // Nastavenie základných vlastností okna
         setContentPane(mainPanel);
-        setTitle(vymazat ? "Vyhľadanie klienta na vymazanie" : "Vyhľadávanie klienta");
+        setTitle("Vyhľadávanie klienta");
         setSize(500, 250);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        //Akcia tlačidla Hľadať a spracovanie vyhľadávania klientov podľa zadaných kritérií.
+        // Akcia tlačidla Hľadať
         buttonHladat.addActionListener(e -> {
-            String inMeno = jTextKrstneMeno.getText().trim();
+            String inMeno = jTextKrstneMenoLabel.getText().trim();
             String inPriezvisko = jTextPriezvisko.getText().trim();
 
-            //Normalizácia vstupov (pre diakritiku, veľké/malé písmená, medzery)
-            String hladaneMeno = ValidaciaVstupov.normalizujText(jTextKrstneMeno.getText());
+            // Normalizácia vstupov pre vyhľadávanie
+            String hladaneMeno = ValidaciaVstupov.normalizujText(jTextKrstneMenoLabel.getText());
             String hladanePriezvisko = ValidaciaVstupov.normalizujText(jTextPriezvisko.getText());
 
-            //Overenie, či bolo vyplnené aspoň jedno pole a zobrazenie správy.
             if (hladaneMeno.isEmpty() && hladanePriezvisko.isEmpty()) {
                 JOptionPane.showMessageDialog(this,
                         "Zadaj aspoň meno alebo priezvisko.",
                         "Vyhľadávanie", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            //Načítanie klientov z XML a vyhľadávanie zhodných klientov
-            List<Klient> klienti = new XMLNacitanieKlientov().nacitajKlientov();
+            // Načítanie všetkých klientov z databázy
+            List<Klient> klienti;
+
+            try {
+                KlientDaoImpl dao = new KlientDaoImpl();
+                klienti = dao.nacitajVsetkychKlientov();
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Nepodarilo sa načítať klientov z databázy:\n" + ex.getMessage(),
+                        "Chyba databázy",
+                        JOptionPane.ERROR_MESSAGE);
+                return; // stop vyhľadávanie
+            }
             List<Klient> zhodniKlienti = new ArrayList<>();
 
             //Vyhľadávanie klientov podľa zadaných kritérií cez normalizované hodnoty
@@ -82,7 +91,7 @@ public class Vyhladavanie extends JFrame {
                         "Výsledok vyhľadávania",
                         JOptionPane.INFORMATION_MESSAGE);
             } else if (zhodniKlienti.size() == 1) {
-                new DetailKlienta(zhodniKlienti.get(0), vymazat).setVisible(true);
+                new DetailKlienta(zhodniKlienti.get(0), zobrazit).setVisible(true);
             } else {
                 String[] moznosti = zhodniKlienti.stream()
                         .map(k -> k.getKrstneMeno() + " " + k.getPriezvisko() + ", vek: " + k.getVek())
@@ -103,7 +112,7 @@ public class Vyhladavanie extends JFrame {
                     for (Klient k : zhodniKlienti) {
                         String label = k.getKrstneMeno() + " " + k.getPriezvisko() + ", vek: " + k.getVek();
                         if (label.equals(vybratKlienta)) {
-                            new DetailKlienta(k, vymazat).setVisible(true);
+                            new DetailKlienta(k,zobrazit).setVisible(true);
                             break;
                         }
                     }
