@@ -3,6 +3,7 @@ package sk.patrikscerba.model;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+// Trieda reprezentujúca klienta
 public class Klient {
 
     private int id;
@@ -14,7 +15,7 @@ public class Klient {
     private String email;
     private LocalDate datumRegistracie;
 
-    // Formatovanie dátumu na dd.MM.yyyy aby sa zobrazoval správne v UI
+    // Formátovanie dátumu na dd.MM.yyyy aby sa zobrazoval správne v UI
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     //Konštruktor triedy Klient používaný pri načítaní klienta z databázy
@@ -97,11 +98,9 @@ public class Klient {
     public LocalDate getDatumRegistracie() {
         return datumRegistracie;
     }
-
     public void setDatumRegistracie(LocalDate datumRegistracie) {
         this.datumRegistracie = datumRegistracie;
     }
-
     //Vypočíta sa vek a vráti vypočítaný vek klienta na základe dátumu narodenia
     public int getVek() {
         if (datumNarodenia == null) {
@@ -113,14 +112,14 @@ public class Klient {
     public void setVek(int vek) {
 
     }
-    // Vráti naformátovaný dátum narodenia ako reťazec vo formáte dd.MM.yyyy
+    // Vráti naformátovaný dátum narodenia, ako reťazec vo formáte dd.MM.yyyy
     public String getDatumNarodeniaFormatted() {
         if (datumNarodenia == null) {
             return "";
         }
         return datumNarodenia.format(FORMATTER);
     }
-    // Nastaví dátum registrácie z naformátovaného reťazca
+    //Metóda pre dátum registrácie naformátovaný ako dd.MM.yyyy a vrátený ako reťazec
     public void setDatumRegistracieFormatted(String datumText) {
         if (datumRegistracie == null) {
             return;
