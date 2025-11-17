@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
+// Trieda pre vytváranie pripojenia k MySQL databáze pomocou JDBC
 public class DatabazaPripojenie {
 
+    // Konštanty pre pripojenie k databáze
     private static final String URL = "jdbc:mysql://localhost:3306/evidencia_klientov";
     private static final String USER = "root";
     private static final String PASSWORD = "";
