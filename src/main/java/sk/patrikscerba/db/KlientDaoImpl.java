@@ -54,8 +54,6 @@ public class KlientDaoImpl {
         sqlDotaz.setLength(sqlDotaz.length() - 2);
         sqlDotaz.append(")");
 
-        // Logovanie generovaného SQL dotazu
-        System.out.println("Generovaný SQL dotaz: " + sqlDotaz);
         return vykonajDotaz(sqlDotaz.toString(), hodnoty);
     }
     // Metóda na aktualizáciu záznamu v tabuľke
@@ -74,8 +72,6 @@ public class KlientDaoImpl {
         sqlDotaz.setLength(sqlDotaz.length() - 2);
         sqlDotaz.append(" WHERE ").append(podmienka);
 
-        // Logovanie generovaného SQL dotazu
-        System.out.println("Generovaný SQL dotaz: " + sqlDotaz);
         return vykonajDotaz(sqlDotaz.toString(), hodnoty);
     }
     // Metóda na výber záznamov z tabuľky
@@ -98,9 +94,6 @@ public class KlientDaoImpl {
         if (podmienka != null && !podmienka.isEmpty()) {
             sqlDotaz.append(" WHERE ").append(podmienka);
         }
-        // Logovanie generovaného SQL dotazu
-        System.out.println("Generovaný SQL dotaz: " + sqlDotaz);
-
         // Vytvorenie PreparedStatement a nastavenie parametrov
         PreparedStatement pripravenyDotaz = connection.prepareStatement(sqlDotaz.toString());
         if (parametre != null) {
@@ -144,7 +137,6 @@ public class KlientDaoImpl {
                 klient.getAdresa(),
                 klient.getId()                 // posledný parameter pre WHERE id = ?
         };
-
         return vykonajDotaz(sqlDotaz, hodnoty);
     }
     // Metóda na vymazanie klienta z databázy

@@ -139,7 +139,7 @@ public class DetailKlienta extends JFrame {
             if (!datumText.isEmpty()) {
                 klient.setDatumNarodenia(LocalDate.parse(datumText, FORMATTER));
             }
-            // Uloženie zmien do XML
+            // Uloženie zmien do databázy
             KlientDaoImpl dao = new KlientDaoImpl();
             dao.updateKlienta(klient);
 
