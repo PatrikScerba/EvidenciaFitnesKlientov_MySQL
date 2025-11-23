@@ -3,10 +3,10 @@ package sk.patrikscerba.ui;
 import javax.swing.*;
 import java.sql.SQLException;
 
-// Hlavné okno aplikácie pre evidenciu klientov
+// Trieda reprezentujúca hlavné okno aplikácie s tlačidlami na registráciu, vyhľadávanie a zobrazenie zoznamu klientov.
 public class HlavneOkno extends JFrame {
 
-    //Hlavné okno aplikácie a jej komponenty
+    //Hlavné okno aplikácie a jeho komponenty
     private JPanel mainPanel;
     private JButton Registracia;
     private JButton Vyhladanie;
@@ -14,7 +14,7 @@ public class HlavneOkno extends JFrame {
     private JLabel verzia2Label;
     private JLabel developedByPatrikŠčerbaLabel;
 
-    //Konštruktor hlavného okna a jeho nastavenie
+    //Konštruktor hlavného okna a jeho nastavenie.
     public HlavneOkno() {
 
         setContentPane(mainPanel);
@@ -24,7 +24,7 @@ public class HlavneOkno extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        //Nastavenie akcií tlačidiel v hlavnom okne a ošetrenie databázových chýb pri načítaní klientov
+        //Nastavenie akcií tlačidiel v hlavnom okne a ošetrenie databázových chýb pri načítaní klientov.
         Registracia.addActionListener(e -> new Registracia().setVisible(true));
         Vyhladanie.addActionListener(e -> new Vyhladavanie(false).setVisible(true) );
         Klienti.addActionListener(e -> {
