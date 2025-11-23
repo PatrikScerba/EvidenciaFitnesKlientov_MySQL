@@ -11,10 +11,10 @@ public class HlavneOkno extends JFrame {
     private JButton Registracia;
     private JButton Vyhladanie;
     private JButton Klienti;
-    private JLabel verzia20BetaLabel;
+    private JLabel verzia2Label;
     private JLabel developedByPatrikŠčerbaLabel;
 
-    //Konštruktor hlavného okna
+    //Konštruktor hlavného okna a jeho nastavenie
     public HlavneOkno() {
 
         setContentPane(mainPanel);
@@ -24,7 +24,7 @@ public class HlavneOkno extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        //Nastavenie akcií tlačidiel v hlavnom okne
+        //Nastavenie akcií tlačidiel v hlavnom okne a ošetrenie databázových chýb pri načítaní klientov
         Registracia.addActionListener(e -> new Registracia().setVisible(true));
         Vyhladanie.addActionListener(e -> new Vyhladavanie(false).setVisible(true) );
         Klienti.addActionListener(e -> {
