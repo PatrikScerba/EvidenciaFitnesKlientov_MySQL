@@ -33,7 +33,7 @@ public class Registracia extends JFrame {
     // Formátovač dátumu
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    //Konštruktor triedy Registracia
+    //Konštruktor triedy Registrácia a nastavenie okna
     public Registracia() {
 
         setContentPane(mainPanel);
@@ -45,7 +45,6 @@ public class Registracia extends JFrame {
 
         buttonRegistrovat.addActionListener(e -> registrujKlienta());
     }
-
     //Metóda na registráciu klienta
     private void registrujKlienta() {
         try {
