@@ -13,7 +13,7 @@ public class ZoznamKlientov extends JFrame {
 
     private final JTable tabulka;
 
-    // Konštruktor triedy ZoznamKlientov
+    // Konštruktor triedy ZoznamKlientov-inicializácia UI a načítanie klientov
     public ZoznamKlientov() throws SQLException {
         setTitle("Zoznam Klientov");
         setSize(850, 400);
@@ -24,7 +24,7 @@ public class ZoznamKlientov extends JFrame {
         add(new JScrollPane(tabulka));
         nacitajKlientov();  // jednoduché volanie
     }
-    // Metóda na načítanie klientov z databázy a zobrazenie v tabuľke
+    // Metóda načítava klientov z databázy a zobrazuje ich v tabuľke
     public void nacitajKlientov() throws SQLException {
 
         KlientDaoImpl klientDao = new KlientDaoImpl();
