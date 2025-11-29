@@ -19,7 +19,7 @@ public class Vyhladavanie extends JFrame {
 
     private final boolean zobrazit;
 
-    // Konštruktor triedy Vyhladavanie
+    //Konštruktor triedy Vyhľadávanie-inicializácia okna a nastavenie možnosti hľadania klienta
     public Vyhladavanie(boolean zobrazit) {
         this.zobrazit = zobrazit;
 
@@ -120,8 +120,8 @@ public class Vyhladavanie extends JFrame {
             }
         });
     }
-    // Odstráni diakritiku, prevedie na malé písmená a oreže medzery
-    // Používa sa pre presné porovnanie vstupov pri vyhľadávaní
+    // Pomocná metóda na normalizáciu textu (odstránenie diakritiky, malá písmená, trim)
+    // Používa sa na presné porovnanie mena a priezviska pri vyhľadávaní
     private String normalize(String s) {
         if (s == null) return "";
         return Normalizer.normalize(s, Normalizer.Form.NFD)
