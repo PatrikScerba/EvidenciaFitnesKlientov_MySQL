@@ -3,15 +3,12 @@ package sk.patrikscerba.ui;
 import sk.patrikscerba.model.Klient;
 import sk.patrikscerba.db.KlientDaoImpl;
 import sk.patrikscerba.utils.ValidaciaVstupov;
-
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Okno na zobrazenie detailov klienta s možnosťou úprav a vymazania.
- */
+//Okno na zobrazenie detailov klienta s možnosťou úprav a vymazania.
 public class DetailKlienta extends JFrame {
 
     private Klient klient;
@@ -33,7 +30,6 @@ public class DetailKlienta extends JFrame {
     private JTextField editAdresa;
     private JTextField editTelefonneCislo;
     private JTextField editDatumNarodenia;
-
 
     private boolean editMode = false;
     private final String povodneMeno;
@@ -66,7 +62,6 @@ public class DetailKlienta extends JFrame {
         });
         if (zobrazitOkno) setVisible(true);
     }
-
     // Metóda na zobrazenie údajov klienta na karte detail klienta
     private void zobrazUdaje() {
         int vypocitanyVek = ValidaciaVstupov.vypocitajVek(klient.getDatumNarodenia());
@@ -92,7 +87,6 @@ public class DetailKlienta extends JFrame {
         editTelefonneCislo.setVisible(viditelne);
         editDatumNarodenia.setVisible(viditelne);
     }
-
     // Metóda na prepnutie do režimu úprav
     // Skrytie štítkov a zobrazenie editačných polí
     private void prepniNaRezimUprav() {
