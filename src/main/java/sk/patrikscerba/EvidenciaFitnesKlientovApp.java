@@ -2,12 +2,11 @@ package sk.patrikscerba;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import sk.patrikscerba.ui.HlavneOkno;
-
 import javax.swing.*;
 
 //Spúšťacia trieda aplikácie
 // Hlavná trieda aplikácie EvidenciaFitnesKlientov
-public class EvidenciaFitnesKlientov {
+public class EvidenciaFitnesKlientovApp {
     public static void main(String[] args) {
         // Nastavenie moderného vzhľadu FlatLaf
         try {
