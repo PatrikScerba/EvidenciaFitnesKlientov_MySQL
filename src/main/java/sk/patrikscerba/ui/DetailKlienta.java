@@ -24,6 +24,7 @@ public class DetailKlienta extends JFrame {
     private JButton vymazatButton;
     private JButton upravitButton;
     private JButton zatvoritButton;
+    private JButton zrusitUpravyButton;
     private JTextField editKrstneMeno;
     private JTextField editPriezvisko;
     private JTextField editEmail;
@@ -54,6 +55,10 @@ public class DetailKlienta extends JFrame {
         zobrazUdaje();
         nastavViditelnostEditacnychPoli(false);
 
+
+        zrusitUpravyButton.setVisible(false);
+
+        zrusitUpravyButton.addActionListener(e -> zrusiUpravy());
         zatvoritButton.addActionListener(e -> dispose());
         vymazatButton.addActionListener(e -> vymazKlienta());
         upravitButton.addActionListener(e -> {
@@ -110,6 +115,7 @@ public class DetailKlienta extends JFrame {
         LocalDate dn = klient.getDatumNarodenia();
         editDatumNarodenia.setText(dn != null ? dn.format(FORMATTER) : "");
 
+        zrusitUpravyButton.setVisible(true);
         upravitButton.setText("💾 Uložiť zmeny");
         mainPanel.setBackground(new Color(234, 232, 232));
     }
@@ -189,6 +195,28 @@ public class DetailKlienta extends JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+    private void zrusiUpravy(){
+        editMode = false;
+        nastavViditelnostEditacnychPoli(false);
+
+        labKrstneMeno.setVisible(true);
+        labPriezvisko.setVisible(true);
+        labVek.setVisible(true);
+        labEmail.setVisible(true);
+        labAdresa.setVisible(true);
+        labTelefonneCislo.setVisible(true);
+        labDatumNarodenia.setVisible(true);
+        labelDatumRegistracie.setVisible(true);
+
+        upravitButton.setText("✏️ Upraviť klienta");
+
+        zrusitUpravyButton.setVisible(false);
+
+        mainPanel.setBackground(UIManager.getColor("Panel.background"));
+
+
+        zobrazUdaje();
     }
         // Pomocná metóda na zobrazenie varovania
         private void showWarn (String msg){
