@@ -22,12 +22,12 @@ public class Registracia extends JFrame {
     private JTextField jTextEmail;
 
     private JLabel krstneMenoLabel;
-    private JLabel priezviskoLabel;
     private JLabel emailLabel;
     private JLabel telefonneCisloLabel;
     private JLabel datumNarodeniaLabel;
     private JLabel adresaLabel;
     private JLabel registraciaKlientaLabel;
+    private JLabel priezviskoLabel;
 
 
     // Formátovač dátumu
@@ -38,7 +38,7 @@ public class Registracia extends JFrame {
 
         setContentPane(mainPanel);
         setTitle("Registrácia klienta");
-        setSize(400, 600);
+        setSize(450, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);

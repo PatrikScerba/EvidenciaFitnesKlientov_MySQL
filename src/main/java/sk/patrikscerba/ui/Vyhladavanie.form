@@ -58,7 +58,7 @@
         </constraints>
         <properties>
           <font name="Segoe UI" size="18"/>
-          <text value="vyhľadať"/>
+          <text value="Vyhľadať klienta"/>
         </properties>
       </component>
       <hspacer id="e5e13">

@@ -1,6 +1,7 @@
 package sk.patrikscerba.ui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
 // Trieda reprezentujúca hlavné okno aplikácie s tlačidlami na registráciu, vyhľadávanie a zobrazenie zoznamu klientov.
@@ -20,6 +21,7 @@ public class HlavneOkno extends JFrame {
         setContentPane(mainPanel);
         setTitle("Evidencia klientov");
         setSize(650, 250);
+        mainPanel.setBackground(new Color(242,244,247));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);

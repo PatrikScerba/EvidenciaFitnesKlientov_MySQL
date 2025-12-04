@@ -31,6 +31,12 @@ public class DetailKlienta extends JFrame {
     private JTextField editAdresa;
     private JTextField editTelefonneCislo;
     private JTextField editDatumNarodenia;
+    private JLabel UpravKrstneMenoLabel;
+    private JLabel UpravPriezviskoLabel;
+    private JLabel UpravEmailLabel;
+    private JLabel UpravAdresaLabel;
+    private JLabel UpravTelefonneCisloLabel;
+    private JLabel UpravDatumNarodeniaLabel;
 
     private boolean editMode = false;
     private final String povodneMeno;
@@ -47,8 +53,11 @@ public class DetailKlienta extends JFrame {
 
         // Nastavenie základných vlastností okna
         setContentPane(mainPanel);
+        mainPanel.setBackground(new Color(242,244,247));
+        upravitButton.setText("✏️ Upraviť klienta");
+
         setTitle("Detail klienta - " + klient.getKrstneMeno() + " " + klient.getPriezvisko());
-        setSize(620, 500);
+        setSize(520, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -74,7 +83,7 @@ public class DetailKlienta extends JFrame {
         labPriezvisko.setText("Priezvisko: " + klient.getPriezvisko());
         labVek.setText("Vek: " + vypocitanyVek);
         labVek.setText("Vek: " + klient.getVek());
-        labEmail.setText("Email: " + klient.getEmail());
+        labEmail.setText("E-mail: " + klient.getEmail());
         labAdresa.setText("Adresa: " + klient.getAdresa());
         labTelefonneCislo.setText("Telefón: " + klient.getTelefonneCislo());
         labDatumNarodenia.setText("Dátum narodenia: " + klient.getDatumNarodeniaFormatted());
@@ -91,6 +100,13 @@ public class DetailKlienta extends JFrame {
         editAdresa.setVisible(viditelne);
         editTelefonneCislo.setVisible(viditelne);
         editDatumNarodenia.setVisible(viditelne);
+
+        UpravKrstneMenoLabel.setVisible(viditelne);
+        UpravPriezviskoLabel.setVisible(viditelne);
+        UpravEmailLabel.setVisible(viditelne);
+        UpravAdresaLabel.setVisible(viditelne);
+        UpravTelefonneCisloLabel.setVisible(viditelne);
+        UpravDatumNarodeniaLabel.setVisible(viditelne);
     }
     // Metóda na prepnutie do režimu úprav
     // Skrytie štítkov a zobrazenie editačných polí
@@ -105,6 +121,8 @@ public class DetailKlienta extends JFrame {
         labTelefonneCislo.setVisible(false);
         labDatumNarodenia.setVisible(false);
 
+        zatvoritButton.setVisible(false);
+
         nastavViditelnostEditacnychPoli(true);
 
         editKrstneMeno.setText(klient.getKrstneMeno());
@@ -117,7 +135,7 @@ public class DetailKlienta extends JFrame {
 
         zrusitUpravyButton.setVisible(true);
         upravitButton.setText("💾 Uložiť zmeny");
-        mainPanel.setBackground(new Color(234, 232, 232));
+        mainPanel.setBackground(new Color(232, 236, 240, 255));
     }
     // Metóda na uloženie zmien po úpravách
     // Vezme hodnoty z editačných polí, validuje ich a uloží zmeny do XML a obnoví zobrazenie
@@ -156,10 +174,13 @@ public class DetailKlienta extends JFrame {
             labTelefonneCislo.setVisible(true);
             labDatumNarodenia.setVisible(true);
             labelDatumRegistracie.setVisible(true);
+            zrusitUpravyButton.setVisible(false);
 
             nastavViditelnostEditacnychPoli(false);
+
+            zatvoritButton.setVisible(true);
             upravitButton.setText("✏️ Upraviť klienta");
-            mainPanel.setBackground(Color.WHITE);
+            mainPanel.setBackground(new Color(242,244,247));
             editMode = false;
 
         } catch (Exception ex) {
@@ -210,10 +231,10 @@ public class DetailKlienta extends JFrame {
         labelDatumRegistracie.setVisible(true);
 
         upravitButton.setText("✏️ Upraviť klienta");
-
+        zatvoritButton.setVisible(true);
         zrusitUpravyButton.setVisible(false);
 
-        mainPanel.setBackground(UIManager.getColor("Panel.background"));
+        mainPanel.setBackground(new Color(242,244,247));
 
 
         zobrazUdaje();

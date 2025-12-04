@@ -4,6 +4,7 @@ import sk.patrikscerba.db.KlientDaoImpl;
 import sk.patrikscerba.model.Klient;
 import sk.patrikscerba.utils.ValidaciaVstupov;
 import javax.swing.*;
+import java.awt.*;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class Vyhladavanie extends JFrame {
         setTitle("Vyhľadávanie klienta");
         setSize(500, 250);
         setLocationRelativeTo(null);
+        mainPanel.setBackground(new Color(242,244,247));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Akcia tlačidla Hľadať
