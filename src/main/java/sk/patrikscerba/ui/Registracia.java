@@ -29,7 +29,6 @@ public class Registracia extends JFrame {
     private JLabel registraciaKlientaLabel;
     private JLabel priezviskoLabel;
 
-
     // Formátovač dátumu
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
@@ -43,6 +42,7 @@ public class Registracia extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
+        // Akcia tlačidla Registrovať
         buttonRegistrovat.addActionListener(e -> registrujKlienta());
     }
     //Metóda na registráciu klienta
@@ -64,16 +64,16 @@ public class Registracia extends JFrame {
                 showWarning("Zadajte platné priezvisko!");
                 return;
             }
-            if (!ValidaciaVstupov.jePlatnyEmail(email)) {
-                showWarning("Neplatný formát e-mailovej adresy!");
-                return;
+            if (!ValidaciaVstupov.jePlatnyDatum(datumNarodeniaText)) {
+            showWarning("Zadajte dátum vo formáte dd.MM.yyyy (napr. 10.10.1999)!");
+            return;
             }
             if (!ValidaciaVstupov.jePlatnyTelefon(telefonneCislo)) {
                 showWarning("Neplatný formát telefónneho čísla!");
                 return;
             }
-            if (!ValidaciaVstupov.jePlatnyDatum(datumNarodeniaText)) {
-                showWarning("Zadajte dátum vo formáte dd.MM.yyyy (napr. 10.10.1999)!");
+            if (!ValidaciaVstupov.jePlatnyEmail(email)) {
+                showWarning("Neplatný formát e-mailovej adresy!");
                 return;
             }
             // Parsovanie dátumu narodenia
