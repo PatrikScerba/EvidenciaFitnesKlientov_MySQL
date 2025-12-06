@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-// Trieda ZoznamKlientov zobrazuje okno so zoznamom klientov v tabuľke
+// Okno so zoznamom klientov v tabuľke
 public class ZoznamKlientov extends JFrame {
 
     private final JTable tabulka;
@@ -25,7 +25,8 @@ public class ZoznamKlientov extends JFrame {
         add(new JScrollPane(tabulka));
         nacitajKlientov();  // jednoduché volanie
     }
-    // Metóda načítava klientov z databázy a zobrazuje ich v tabuľke
+
+    // Načítanie klientov z databázy a zobrazenie v tabuľke
     public void nacitajKlientov() throws SQLException {
 
         KlientDaoImpl klientDao = new KlientDaoImpl();
@@ -37,6 +38,7 @@ public class ZoznamKlientov extends JFrame {
                 null,   // bez WHERE
                 null    // bez parametrov
         );
+
         // Vytvorenie modelu tabuľky
         DefaultTableModel model = new DefaultTableModel();
 
@@ -69,24 +71,26 @@ public class ZoznamKlientov extends JFrame {
                     resultSet.getDate("datum_narodenia"),
                     resultSet.getDate("datum_registracie")
             });
+
             poradie++;
         }
             tabulka.setModel(model);
 
+        // Zarovnanie buniek v tabuľke ZoznamKlientov na stred
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Zarovnanie doľava
+        // Zarovnanie buniek v tabuľke ZoznamKlientov doľava
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 
-
+        // Poradové číslo, ID, Dátum narodenia, Dátum registrácie zarovnanie na stred
         tabulka.getColumnModel().getColumn(0).setCellRenderer(centerRenderer); // Poradové číslo
         tabulka.getColumnModel().getColumn(1).setCellRenderer(centerRenderer); // ID
         tabulka.getColumnModel().getColumn(6).setCellRenderer(centerRenderer); // Dátum narodenia
         tabulka.getColumnModel().getColumn(7).setCellRenderer(centerRenderer); // Dátum registrácie
 
-        // Meno, Priezvisko, Email, Telefón
+        // Krstné meno, Priezvisko, Email, Telefón zarovnanie na stred alebo doľava
         tabulka.getColumnModel().getColumn(2).setCellRenderer(centerRenderer); // Krstné meno
         tabulka.getColumnModel().getColumn(3).setCellRenderer(centerRenderer); // Priezvisko
         tabulka.getColumnModel().getColumn(4).setCellRenderer(leftRenderer); // Email

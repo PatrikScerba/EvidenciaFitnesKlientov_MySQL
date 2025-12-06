@@ -4,8 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
-// Trieda pre vytváranie pripojenia k MySQL databáze pomocou JDBC
+// Vytvára pripojenie k MySQL databáze cez JDBC
 public class DatabazaPripojenie {
 
     // Konštanty pre pripojenie k databáze

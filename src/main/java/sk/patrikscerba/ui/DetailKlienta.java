@@ -21,16 +21,19 @@ public class DetailKlienta extends JFrame {
     private JLabel labTelefonneCislo;
     private JLabel labDatumNarodenia;
     private JLabel labelDatumRegistracie;
+
     private JButton vymazatButton;
     private JButton upravitButton;
     private JButton zatvoritButton;
     private JButton zrusitUpravyButton;
+
     private JTextField editKrstneMeno;
     private JTextField editPriezvisko;
     private JTextField editEmail;
     private JTextField editAdresa;
     private JTextField editTelefonneCislo;
     private JTextField editDatumNarodenia;
+
     private JLabel UpravKrstneMenoLabel;
     private JLabel UpravPriezviskoLabel;
     private JLabel UpravEmailLabel;
@@ -53,20 +56,19 @@ public class DetailKlienta extends JFrame {
 
         // Nastavenie základných vlastností okna
         setContentPane(mainPanel);
+        pack();
         mainPanel.setBackground(new Color(242,244,247));
         upravitButton.setText("✏️ Upraviť klienta");
 
         setTitle("Detail klienta - " + klient.getKrstneMeno() + " " + klient.getPriezvisko());
-        setSize(520, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         zobrazUdaje();
         nastavViditelnostEditacnychPoli(false);
-
-
         zrusitUpravyButton.setVisible(false);
 
+        // Nastavenie akcií tlačidiel
         zrusitUpravyButton.addActionListener(e -> zrusiUpravy());
         zatvoritButton.addActionListener(e -> dispose());
         vymazatButton.addActionListener(e -> vymazKlienta());
@@ -74,9 +76,11 @@ public class DetailKlienta extends JFrame {
             if (!editMode) prepniNaRezimUprav();
             else ulozZmeny();
         });
+
         if (zobrazitOkno) setVisible(true);
     }
-    // Metóda na zobrazenie údajov klienta na karte detail klienta
+
+    // Zobrazí údaje klienta v okne
     private void zobrazUdaje() {
         int vypocitanyVek = ValidaciaVstupov.vypocitajVek(klient.getDatumNarodenia());
         labKrstneMeno.setText("Meno: " + klient.getKrstneMeno());
@@ -89,10 +93,10 @@ public class DetailKlienta extends JFrame {
         labDatumNarodenia.setText("Dátum narodenia: " + klient.getDatumNarodeniaFormatted());
         labelDatumRegistracie.setText(
                 "Dátum registrácie: " +
-                                klient.getDatumRegistracie().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                );
+                                klient.getDatumRegistracie().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
     }
-    // Metóda na nastavenie viditeľnosti editačných polí pre úpravy
+
+    // Nastaví viditeľnosť editačných polí
     private void nastavViditelnostEditacnychPoli(boolean viditelne) {
         editKrstneMeno.setVisible(viditelne);
         editPriezvisko.setVisible(viditelne);
@@ -108,8 +112,8 @@ public class DetailKlienta extends JFrame {
         UpravTelefonneCisloLabel.setVisible(viditelne);
         UpravDatumNarodeniaLabel.setVisible(viditelne);
     }
-    // Metóda na prepnutie do režimu úprav
-    // Skrytie štítkov a zobrazenie editačných polí
+
+    // Prepne okno do editačného režimu (skryje texty, zobrazí políčka)
     private void prepniNaRezimUprav() {
         editMode = true;
 
@@ -130,6 +134,7 @@ public class DetailKlienta extends JFrame {
         editEmail.setText(klient.getEmail());
         editAdresa.setText(klient.getAdresa());
         editTelefonneCislo.setText(klient.getTelefonneCislo());
+
         LocalDate dn = klient.getDatumNarodenia();
         editDatumNarodenia.setText(dn != null ? dn.format(FORMATTER) : "");
 
@@ -137,14 +142,15 @@ public class DetailKlienta extends JFrame {
         upravitButton.setText("💾 Uložiť zmeny");
         mainPanel.setBackground(new Color(232, 236, 240, 255));
     }
-    // Metóda na uloženie zmien po úpravách
-    // Vezme hodnoty z editačných polí, validuje ich a uloží zmeny do XML a obnoví zobrazenie
+    // Uloží zmenené údaje klienta do databázy a aktualizuje UI
     private void ulozZmeny() {
         try {
             if (editKrstneMeno.getText().trim().isEmpty() || editPriezvisko.getText().trim().isEmpty()) {
+
                 showWarn("Meno a priezvisko musia byť vyplnené!");
                 return;
             }
+
             // Aktualizácia údajov klienta z editačných polí
             klient.setKrstneMeno(editKrstneMeno.getText().trim());
             klient.setPriezvisko(editPriezvisko.getText().trim());
@@ -157,15 +163,19 @@ public class DetailKlienta extends JFrame {
             if (!datumText.isEmpty()) {
                 klient.setDatumNarodenia(LocalDate.parse(datumText, FORMATTER));
             }
+
             // Uloženie zmien do databázy
             KlientDaoImpl dao = new KlientDaoImpl();
             dao.updateKlienta(klient);
 
-            JOptionPane.showMessageDialog(this, "Zmeny boli úspešne uložené.",
-                    "Úprava klienta", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Zmeny boli úspešne uložené.",
+                        "Úprava klienta",
+                            JOptionPane.INFORMATION_MESSAGE);
 
             // Obnovenie zobrazenia údajov po úpravách
             zobrazUdaje();
+
             labKrstneMeno.setVisible(true);
             labPriezvisko.setVisible(true);
             labVek.setVisible(true);
@@ -174,12 +184,13 @@ public class DetailKlienta extends JFrame {
             labTelefonneCislo.setVisible(true);
             labDatumNarodenia.setVisible(true);
             labelDatumRegistracie.setVisible(true);
-            zrusitUpravyButton.setVisible(false);
 
+            zrusitUpravyButton.setVisible(false);
             nastavViditelnostEditacnychPoli(false);
 
             zatvoritButton.setVisible(true);
             upravitButton.setText("✏️ Upraviť klienta");
+
             mainPanel.setBackground(new Color(242,244,247));
             editMode = false;
 
@@ -189,7 +200,8 @@ public class DetailKlienta extends JFrame {
                     "Chyba", JOptionPane.ERROR_MESSAGE);
         }
     }
-    // Metóda na vymazanie klienta
+
+    // Vymaže klienta z databázy po potvrdení užívateľa
     private void vymazKlienta() {
         int potvrdenie = JOptionPane.showConfirmDialog(this,
                 "Naozaj chcete vymazať tohto klienta?",
@@ -197,7 +209,6 @@ public class DetailKlienta extends JFrame {
                 JOptionPane.YES_NO_OPTION);
 
         if (potvrdenie == JOptionPane.YES_OPTION) {
-
             try {
                 KlientDaoImpl dao = new KlientDaoImpl();
                 dao.vymazatKlienta(klient);
@@ -217,6 +228,8 @@ public class DetailKlienta extends JFrame {
             }
         }
     }
+
+    // Zruší úpravy a vráti pôvodné údaje v UI
     private void zrusiUpravy(){
         editMode = false;
         nastavViditelnostEditacnychPoli(false);
@@ -236,9 +249,9 @@ public class DetailKlienta extends JFrame {
 
         mainPanel.setBackground(new Color(242,244,247));
 
-
         zobrazUdaje();
     }
+
         // Pomocná metóda na zobrazenie varovania
         private void showWarn (String msg){
             JOptionPane.showMessageDialog(this, msg, "Upozornenie", JOptionPane.WARNING_MESSAGE);

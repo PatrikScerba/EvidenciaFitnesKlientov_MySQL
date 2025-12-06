@@ -34,6 +34,7 @@ public class Vyhladavanie extends JFrame {
 
         // Akcia tlačidla Hľadať
         buttonHladat.addActionListener(e -> {
+
             String inMeno = jTextKrstneMenoLabel.getText().trim();
             String inPriezvisko = jTextPriezvisko.getText().trim();
 
@@ -47,28 +48,28 @@ public class Vyhladavanie extends JFrame {
                         "Vyhľadávanie", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+
             // Načítanie všetkých klientov z databázy
             List<Klient> klienti;
 
             try {
                 KlientDaoImpl dao = new KlientDaoImpl();
                 klienti = dao.nacitajVsetkychKlientov();
-
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this,
                         "Nepodarilo sa načítať klientov z databázy:\n" + ex.getMessage(),
                         "Chyba databázy",
                         JOptionPane.ERROR_MESSAGE);
-                return; // stop vyhľadávanie
+                return;
             }
+
             List<Klient> zhodniKlienti = new ArrayList<>();
 
-            //Vyhľadávanie klientov podľa zadaných kritérií cez normalizované hodnoty
+            // Vyhľadávanie cez normalizované meno/priezvisko (bez diakritiky)
             for (Klient k : klienti) {
                 String meno = normalize(k.getKrstneMeno());
                 String priezvisko = normalize(k.getPriezvisko());
 
-                //kontrola zhody podľa zadaných kritérií
                 boolean zhoda = false;
 
                 //Vyhľadávanie podľa mena, priezviska alebo oboch
@@ -83,15 +84,18 @@ public class Vyhladavanie extends JFrame {
                     boolean priezviskoZhoda = priezvisko.equals(hladanePriezvisko) || priezvisko.contains(hladanePriezvisko);
                     zhoda = menoZhoda && priezviskoZhoda;
                 }
+
                 // Ak je zhoda, pridaj klienta do zoznamu zhodných klientov
                 if (zhoda) zhodniKlienti.add(k);
             }
+
             // Spracovanie výsledkov vyhľadávania a zobrazenie detailov klienta alebo výberu z viacerých nájdených klientov
             if (zhodniKlienti.isEmpty()) {
                 JOptionPane.showMessageDialog(this,
                         "Klient nebol nájdený.",
                         "Výsledok vyhľadávania",
                         JOptionPane.INFORMATION_MESSAGE);
+
             } else if (zhodniKlienti.size() == 1) {
                 new DetailKlienta(zhodniKlienti.get(0), zobrazit).setVisible(true);
             } else {
@@ -122,8 +126,8 @@ public class Vyhladavanie extends JFrame {
             }
         });
     }
+
     // Pomocná metóda na normalizáciu textu (odstránenie diakritiky, malá písmená, trim)
-    // Používa sa na presné porovnanie mena a priezviska pri vyhľadávaní
     private String normalize(String s) {
         if (s == null) return "";
         return Normalizer.normalize(s, Normalizer.Form.NFD)

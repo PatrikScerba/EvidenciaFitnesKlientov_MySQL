@@ -14,6 +14,7 @@ public class Registracia extends JFrame {
 
     private JPanel mainPanel;
     private JButton buttonRegistrovat;
+
     private JTextField jTextKrstneMeno;
     private JTextField jTextPriezvisko;
     private JTextField jTextDatumNarodenia;
@@ -45,7 +46,8 @@ public class Registracia extends JFrame {
         // Akcia tlačidla Registrovať
         buttonRegistrovat.addActionListener(e -> registrujKlienta());
     }
-    //Metóda na registráciu klienta
+
+    // Spracuje registráciu nového klienta
     private void registrujKlienta() {
         try {
             String krstneMeno = jTextKrstneMeno.getText().trim();
@@ -76,7 +78,8 @@ public class Registracia extends JFrame {
                 showWarning("Neplatný formát e-mailovej adresy!");
                 return;
             }
-            // Parsovanie dátumu narodenia
+
+            // Prevod dátumu narodenia na LocalDate
             LocalDate datumNarodenia = LocalDate.parse(datumNarodeniaText, FORMATTER);
 
             // Overenie veku klienta
@@ -85,6 +88,7 @@ public class Registracia extends JFrame {
                 showWarning("Klient musí mať minimálne 15 rokov!");
                 return;
             }
+
             // Vytvorenie nového klienta
             Klient novyKlient = new Klient(krstneMeno, priezvisko, email, telefonneCislo, datumNarodenia);
             novyKlient.setAdresa(adresa);
@@ -92,7 +96,15 @@ public class Registracia extends JFrame {
             // Uloženie klienta do databázy
             KlientDaoImpl klientDao = new KlientDaoImpl();
 
-            String[] stlpce = {"krstne_meno", "priezvisko", "datum_narodenia", "telefonne_cislo", "email", "adresa"};
+            String[] stlpce = {
+                    "krstne_meno",
+                    "priezvisko",
+                    "datum_narodenia",
+                    "telefonne_cislo",
+                    "email",
+                    "adresa"
+            };
+
             Object[] hodnoty = {
                     novyKlient.getKrstneMeno(),
                     novyKlient.getPriezvisko(),
@@ -101,12 +113,14 @@ public class Registracia extends JFrame {
                     novyKlient.getEmail(),
                     novyKlient.getAdresa(),
             };
+
             klientDao.insert("klienti", stlpce, hodnoty);
 
             JOptionPane.showMessageDialog(this,
                     "Klient bol úspešne zaregistrovaný.",
                     "Registrácia úspešná",
                     JOptionPane.INFORMATION_MESSAGE);
+
             dispose();
 
         } catch (Exception ex) {
@@ -115,8 +129,8 @@ public class Registracia extends JFrame {
                     "Chyba",
                     JOptionPane.ERROR_MESSAGE);
         }
-
     }
+
     //Pomocná metóda na zobrazenie varovania
     private void showWarning(String text) {
         JOptionPane.showMessageDialog(this, text, "Upozornenie", JOptionPane.WARNING_MESSAGE);
