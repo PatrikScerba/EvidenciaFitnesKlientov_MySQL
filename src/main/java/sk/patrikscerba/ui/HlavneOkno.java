@@ -13,7 +13,7 @@ public class HlavneOkno extends JFrame {
     private JButton Vyhladanie;
     private JButton Klienti;
     private JLabel verzia2Label;
-    private JLabel developedByPatrikŠčerbaLabel;
+    private JLabel developerByPatrikŠčerbaLabel;
 
     //Konštruktor hlavného okna a jeho nastavenie.
     public HlavneOkno() {
