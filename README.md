@@ -7,69 +7,68 @@ Projekt je postavený na **Java SE**, **JDBC**, **MySQL** a **Java Swing**, so z
 
 ## 🚀 Funkcionality
 
-- **Registrácia nového klienta**
-    - Validácia vstupov (meno, priezvisko, email, dátum narodenia…)
-    - Uloženie do MySQL databázy
-    - Kontrola veku (min. 15 rokov)
-    - Zobrazenie potvrdenia o úspešnej registrácii
-    - Automatické uloženie dátumu registrácie
+### ✔ Registrácia klienta
+- Validácia vstupov (meno, priezvisko, email, dátum narodenia…)
+- Uloženie do MySQL databázy
+- Zobrazenie potvrdenia o úspešnej registrácii
+- Kontrola veku (min. 15 rokov)
+- Automatické uloženie dátumu registrácie
 
+### ✔ Vyhľadávanie klientov
+- Fulltextové vyhľadávanie podľa mena/priezviska
+- Normalizácia textu (bez diakritiky)
+- Možnosť výberu pri viacerých zhodách
 
-- **Vyhľadávanie klientov**
-    - Fulltextové vyhľadávanie podľa mena/priezviska
-    - Normalizácia textu (bez diakritiky)
-    - Možnosť výberu pri viacerých zhôd
-  
+### ✔ Zoznam klientov
+- Prehľadná tabuľka všetkých klientov
+- Zarovnané stĺpce (ID, meno, dátumy, email…)
+- Automatické načítanie dát z databázy
 
-
-- **Zoznam klientov**
-    - Prehľadná tabuľka všetkých klientov
-    - Zarovnané stĺpce (ID, dátumy, mená…)
-    - Automatické načítanie dát z databázy
-
-
-- **Detail klienta**
-    - Prehľad údajov klienta
-    - UX rozdelenie na režim zobrazenia a úpravy
-    - Úprava údajov (edit mód)
-    - Vymazanie klienta
-    - Potvrdenie akcií (editácia, vymazanie)
+### ✔ Detail klienta
+- Prehľad údajov klienta
+- UX rozdelenie na režim zobrazenia a úpravy
+- Režim **zobrazenia**
+- Režim **úpravy**
+- Úprava údajov (edit mód)
+- Vymazanie klienta
+- Potvrdenie akcií (úprava, vymazanie)
+- úprava, vymazanie, zrušenie úprav
+- Registrácia klienta je fixná 
 
 ---
 
 ## 🏗 Použité technológie
 
-- **Java 24**
+- **Java 21**
 - **JDBC (Java Database Connectivity)**
 - **MySQL 8+**
 - **Java Swing (UI)**
 - **FlatLaf – moderný vzhľad UI**
 - **IntelliJ IDEA**
+- **Launch4j**
 
 ---
 
-## 🎨 UI & UX vylepšenia vo verzii 2.0
+## 🎨 UI & UX vylepšenia vo verzii 2.0.0
 
-### Verzia 2 prináša zlepšenie používateľského komfortu:
+### Verzia 2 prináša skvalitnenie používateľského komfortu:
 
 - decentnejší vzhľad aplikácie
 - nové rozloženie prvkov vo všetkých oknách
 - jednotná typografia a štýl komponentov
 - zlepšenie odsadenia, zarovnania a rozostup
-- prehľadná karta detailu klienta s dvoma režimami:
-    - **zobrazenie**
-    - **úprava**
+- prehľadná karta detailu klienta s dvoma režimami
 - moderné farby a čistý svetlý dizajn FlatLaf
-- zarovnané tabuľky v zozname klientov
+- zarovnanie stĺpcov v zozname klientov
 
 ---
 
 ## 📸 Ukážky aplikácie
 
-Vizualizácia hlavných častí desktopovej aplikácie **Evidencia Fitnes Klientov**:
+### Vizualizácia častí desktopovej aplikácie **Evidencia Fitnes Klientov**:
 
 ### 🏠 Hlavné menu
-![Hlavné menu](screenshots/Sn%C3%ADmka%20obrazovky%202025-12-05%20084003.png)
+![Hlavné menu](screenshots/Sn%C3%ADmka%20obrazovky%202025-12-07%20181254.png)
 
 
 ### 🧍‍♂️ Registrácia klienta - Detail klienta - Úprava klienta
@@ -81,9 +80,9 @@ Vizualizácia hlavných častí desktopovej aplikácie **Evidencia Fitnes Klient
 
 ### 🔍 Vyhľadávanie klienta
 
-![Vyhľadávanie](screenshots/Sn%C3%ADmka%20obrazovky%202025-12-05%20212102.png)
+![Vyhľadávanie](screenshots/Sn%C3%ADmka%20obrazovky%202025-12-05%20080407.png)
 
-### 📋 Zoznam všetkých klientov (Swing - MySQL)
+### 📋 Zoznam všetkých klientov (Swing-MySQL)
 
 ![Zoznam klintov](screenshots/Sn%C3%ADmka%20obrazovky%202025-12-05%20211904.png)
 
@@ -96,7 +95,7 @@ Vizualizácia hlavných častí desktopovej aplikácie **Evidencia Fitnes Klient
 ├── db/ # Práca s databázou (DAO + pripojenie)
 ├── model/ # Dátové objekty (Klient)
 ├── ui/ # Swing UI okná
-├── utils/ # Validácie a pomocné triedy
+├── utils/ # Validácie
 └── EvidenciaFitnesKlientovApp.java
 ```
 
@@ -118,71 +117,107 @@ CREATE TABLE klienti (
     datum_registracie DATE DEFAULT CURRENT_DATE
 );
 ```
-
 ---
 
 ## 🧪 Testovanie
 
-#### Projekt bol otestovaný ako **desktopová CRUD aplikácia**:
-- overené čítanie a zápis do MySQL databázy,
-- testované scenáre: registrácia, úprava, mazanie, vyhľadávanie,
-- validácia vstupov pre všetky polia,
-- funkčnosť GUI.
+### Aplikácia bola testovaná ako desktopová CRUD aplikácia
+
+### Testované scenáre:
+
+- overené čítanie a zápis do MySQL databázy
+- registrácia, úprava a vymazanie klienta 
+- vyhľadávanie podľa mena/priezviska
+- validácie pre všetky polia
+- funkčnosť grafického rozhrania
+- stabilita pri práci s MySQL
+
+### Testované prostredie:
+
+- Windows 11,
+- Temurin JDK 21
+- XAMPP (MySQL server)
+- IntelliJ IDEA 
+- Launch4j 
 
 ---
 
-## 🚀 Spustenie aplikácie (vývojárske prostredie)
+## 🚀Spustenie aplikácie 
+### 1. vývojárske prostredie(zdrojový kód)
 
-### 1. ✔️ Požiadavky
-- **JDK 24** (projekt bol vyvíjaný a testovaný v JDK 24)
-- Plne kompatibilné aj s **JDK 21+ (LTS)**
-- IntelliJ IDEA (odporúčané)
-- MySQL Server + MySQL Workbench
+###  ✔️ Požiadavky
+- IntelliJ IDEA JDK 21
+- XAMPP (MySQL server)
 - JDBC driver (automaticky načítaný cez projekt)
 
+###  📦 klonovanie projektu
+Projekt si stiahnete cez Git:
+git clone
+
+👉 https://github.com/PatrikScerba/EvidenciaFitnesKlientov_MySQL.git
+
 ---
 
-### 2. 📦 Naklonovanie projektu
-Projekt si stiahnete cez Git:
-git clone https://github.com/PatrikScerba/EvidenciaFitnesKlientov_MySQL.git
+### ✔ 2. Ako EXE (pre používateľov)
+
+###  ✔️ Požiadavky
+- JDK/JRE 21+
+- XAMPP (MySQL server)
+
+
+## 📥 Stiahnutie aplikácie
+
+Novú stabilnú verziu aplikácie (EXE + schéma databázy + používateľský návod) si môžete stiahnuť tu:
+
+👉 **[Stiahnuť EvidenciaFitnesApp – Verzia 2.0.0](https://github.com/PatrikScerba/EvidenciaFitnesKlientov_MySQL/releases/tag/v2.0.0)**
+
+ZIP obsahuje:
+- EXE aplikáciu
+- Databázovú schému `evidencia_klientov_schema.sql`
+- Používateľský manuál (PDF + MD)
 
 ---
 
 ## 📌 Plány do budúcna (Roadmap)
 
-- QR kódy pre klientov (verzia 3.0 – Hybrid DB + XML)
-- Obmedzenie jedného vstupu denne
-- Funkcia predĺženia permanentky podľa dátumu
-- Offline režim pre výpadok databázy
-- Export do PDF/CSV
-- REST API vo verzii 4.0 (Spring Boot)
+### 🔜 Verzia 3.0.0 (Hybrid – MySQL + XML)
+- Generovanie a správa QR kódov pre klientov
+- Obmedzenie jedného vstupu **1x denne**
+- Funkcia predĺženia permanentky/kontrola 
+- Offline režim pri výpadku databázy (iba čítanie údajov)
+- Export údajov do PDF/CSV formátu 
+
+### 🔜 Verzia 4.0.0 (Spring Boot Backend + React Frontend)
+
+- REST API pre správu klientov 
+- Moderný webový frontend v Reacte
+- Pokročilé prihlasovanie (zamestnávateľ /zamestnanec)
+- Riadenie prístupov podľa rolí
+- Uchovávanie záznamov 
+- Pokročilé logovanie, monitoring a audit zmien
+- Oddelená architektúra backend-frontend
 
 ---
 
-🏆 Cieľ portfólia
+### 🏆 Cieľ portfólia
+
 Tento projekt je súčasťou môjho osobného portfólia.
 Cieľom bolo ukázať zvládnutie:
 
 - Java Swing GUI, 
-- prácu s databázou MySQL cez JDBC,
+- prácu s databázou MySQL cez JDBC
+- návrh desktopovej CRUD aplikácie
 
 ---
 
-👤 Autor
-
-Patrik Ščerba
-Java Developer (Java SE • JDBC • Swing • MySQL)
+### 👤 Autor
+**Patrik Ščerba**  
+Java Developer |Java • Swing • MySQL | © 2025
 
 - [LinkedIn](https://www.linkedin.com/in/patrik-%C5%A1%C4%8Derba/)
 
 - [GitHub](https://github.com/PatrikScerba)
 
----
-## ⚖️ Licencia
-
-Projekt **Evidencia Fitnes Klientov** je určený na študijné a nekomerčné účely.
-
-© 2024 Patrik Ščerba. Všetky práva vyhradené.
 
 
 
